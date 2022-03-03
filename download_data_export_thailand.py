@@ -68,12 +68,10 @@ class downloadexport():
         amn = urllib3.PoolManager()
         data = pd.DataFrame()
         for i in range(len(da)):
-            res = amn.request('GET',url = self.url,fields=da[i])
-  
-
+            res = amn.request("GET",url = self.url,fields=da[i])
             data1 = json.loads(res.data)
             data2 = pd.DataFrame(data1)
-            data2['year_month'] = data2['year'].map(str)+"/"+data2['month'].map(str)
+            data2["year_month"] = data2["year"].map(str)+"/"+data2["month"].map(str)
             data2 = data2.drop(["year","month"],axis=1).set_index(["year_month"])
             data = data.append(data2)
         return data
